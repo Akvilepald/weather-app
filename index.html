@@ -19,6 +19,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
         rel="stylesheet">
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -43,7 +44,7 @@
                     <div class="today-date">
                     14:06, Friday 2 April
                     </div>
-                    <div class="city">
+                    <div class="city" id="city">
                         Edinburgh
                     </div>
                       
@@ -57,8 +58,7 @@
                 </div>
                 <div class="col-6" id="temperature-column">
                     <div class="current-temperature">
-                        <i class="fas fa-cloud" id="main-icon"></i>
-                        10°C
+                        <i class="fas fa-cloud" id="main-icon"></i> <span id="degrees"> 10°C </span> 
                     </div>
                     <div>
                     <a href="" class="celsius-option" > °C </a>  |
