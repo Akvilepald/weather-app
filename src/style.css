@@ -1,1 +1,86 @@
+body {
+  margin: 60px auto;
+}
 
+.weather-app {
+  max-width: 800px;
+  margin: 60px auto;
+  box-sizing: border-box;
+  border: 1px solid #f5f5f5;
+  border-radius: 10px;
+  padding: 70px;
+  font-family: "Ubuntu", sans-serif;
+  background-color: #f5f5f5;
+  color: #2a504f;
+}
+
+.city {
+  font-weight: 700;
+  font-size: 40px;
+}
+
+.humidity-wind {
+  font-size: 16px;
+  padding-bottom: 20px;
+}
+.description {
+  color: #d81159;
+}
+
+.humidity-percent {
+  color: #d81159;
+}
+
+.wind-speed {
+  color: #d81159;
+}
+
+.celsius-option {
+  color: #d81159;
+}
+.celsius-option:hover {
+  color: #2a504f;
+}
+
+.fahrenheit-option {
+  color: #d81159;
+}
+
+.fahrenheit-option:hover {
+  color: #2a504f;
+}
+
+#search-button {
+  background-color: #2a504f;
+  border-color: #2a504f;
+}
+#search-button:hover {
+  background-color: #d81159;
+  border-color: #d81159;
+  color: floralwhite;
+  transition: all 200ms ease-in;
+}
+
+#temperature-column {
+  text-align: center;
+  padding-top: 30px;
+}
+
+.current-temperature {
+  font-size: 60px;
+  font-weight: 700;
+}
+#day {
+  display: inline-block;
+  padding: 10px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.today-date {
+  color: #d81159;
+}
+
+.search-input {
+  border-color: #d81159;
+}
