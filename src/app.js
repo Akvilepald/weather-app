@@ -8,7 +8,16 @@ console.log(fullDate);
 let dateElement = document.querySelector(".today-date");
 dateElement.innerHTML = `${fullDate}`;
 
+let city = document.querySelector("input");
 
+
+function getCity(event) {
+event.preventDefault();
+let apiKey = "175ad63a7fc75a67f734a3105255cb29";
+let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&appid=${apiKey}&units=metric`;
+console.log(apiUrl);
+axios.get(apiUrl).then(displayTemperature);
+}
 
 function displayTemperature(response) {
 console.log(response);
@@ -27,8 +36,6 @@ windElement.innerHTML = `${response.data.wind.speed} m/s`;
 mainIconElement.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
 }
 
-let apiKey = "175ad63a7fc75a67f734a3105255cb29";
-let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=Sydney&appid=${apiKey}&units=metric`;
-console.log(apiUrl);
 
-axios.get(apiUrl).then(displayTemperature);
+let searchCity = document.querySelector("form");
+searchCity.addEventListener("submit", getCity);
