@@ -10,18 +10,31 @@ let dateElement = document.querySelector(".today-date");
 dateElement.innerHTML = `${fullDate}`;
 
 let city = document.querySelector("input");
-
-
+let temperatureElement = document.querySelector("#degrees"); 
+let apiKey = "175ad63a7fc75a67f734a3105255cb29";
 
 function getCity(event) {
 event.preventDefault();
-let apiKey = "175ad63a7fc75a67f734a3105255cb29";
 let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&appid=${apiKey}&units=metric`;
 console.log(apiUrl);
 axios.get(apiUrl).then(displayTemperature);
 }
 
-let temperatureElement = document.querySelector("#degrees"); 
+function getPosition(position) {
+    let lat = position.coords.latitude;
+   let lon = position.coords.longitude;
+   let apiKey = "175ad63a7fc75a67f734a3105255cb29";
+   let locationApiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+   console.log(locationApiUrl);
+   axios.get(locationApiUrl).then(displayTemperature);
+}
+
+function getCurrentPosition() {
+navigator.geolocation.getCurrentPosition(getPosition);
+}
+
+let currentPositionButton = document.querySelector("#location-button");
+currentPositionButton.addEventListener("click", getCurrentPosition);
 
 
 function displayTemperature(response) {
