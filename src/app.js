@@ -19,15 +19,18 @@ console.log(apiUrl);
 axios.get(apiUrl).then(displayTemperature);
 }
 
+let temperatureElement = document.querySelector("#degrees"); 
+
 function displayTemperature(response) {
 console.log(response);
-let temperatureElement = document.querySelector("#degrees");
+
 let cityElement = document.querySelector("#city");
 let descriptionElement = document.querySelector(".description");
 let humidityElement = document.querySelector(".humidity-percent");
 let windElement = document.querySelector(".wind-speed");
 let mainIconElement = document.querySelector("#icon")
 
+celsiusTemp = Math.round(response.data.main.temp);
 temperatureElement.innerHTML = `${Math.round(response.data.main.temp)}°C`
 cityElement.innerHTML = response.data.name;
 descriptionElement.innerHTML = response.data.weather[0].description;
@@ -37,5 +40,24 @@ mainIconElement.setAttribute("src", `http://openweathermap.org/img/wn/${response
 }
 
 
+function showFahrenheit(event) {
+    event.preventDefault();
+let fahrenheit = Math.round(celsiusTemp*1.8+32);
+temperatureElement.innerHTML = `${fahrenheit}°F`;
+}
+
+function showCelsius(event) {
+    event.preventDefault();
+    temperatureElement.innerHTML = `${celsiusTemp}°C`;
+}
+
+let celsiusTemp = null;
+
 let searchCity = document.querySelector("form");
 searchCity.addEventListener("submit", getCity);
+
+let fahrenheitOption = document.querySelector(".fahrenheit-option");
+fahrenheitOption.addEventListener("click", showFahrenheit)
+
+let celsiusOption = document.querySelector(".celsius-option");
+celsiusOption.addEventListener("click", showCelsius);
