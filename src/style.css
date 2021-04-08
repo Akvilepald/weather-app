@@ -66,6 +66,17 @@ body {
   transition: all 200ms ease-in;
 }
 
+#location-button {
+  background-color: #2a504f;
+  border-color: #2a504f;
+}
+#location-button:hover {
+  background-color: #d81159;
+  border-color: #d81159;
+  color: floralwhite;
+  transition: all 200ms ease-in;
+}
+
 #temperature-column {
   text-align: center;
   padding-top: 30px;
