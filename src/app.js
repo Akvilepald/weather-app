@@ -1,3 +1,4 @@
+
 let now = new Date();
 let weekDay = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 let day = weekDay[now.getDay()];
@@ -11,6 +12,7 @@ dateElement.innerHTML = `${fullDate}`;
 let city = document.querySelector("input");
 
 
+
 function getCity(event) {
 event.preventDefault();
 let apiKey = "175ad63a7fc75a67f734a3105255cb29";
@@ -20,6 +22,7 @@ axios.get(apiUrl).then(displayTemperature);
 }
 
 let temperatureElement = document.querySelector("#degrees"); 
+
 
 function displayTemperature(response) {
 console.log(response);
