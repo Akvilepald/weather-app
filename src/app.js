@@ -10,12 +10,10 @@ let dateElement = document.querySelector(".today-date");
 dateElement.innerHTML = `${fullDate}`;
 
 function getForecast(coordinates) {
-    console.log(coordinates)
         let forecastApiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
-    console.log(forecastApiUrl);
         axios.get(forecastApiUrl).then(displayForecast);
 
-}
+};
 
 function formatForecastDay(timestamp) {
     let date = new Date(timestamp * 1000);
@@ -23,8 +21,7 @@ function formatForecastDay(timestamp) {
     let days = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
     return days[day];
 
-}
-
+};
 
 function displayForecast(response) {
     let forecast = response.data.daily;
@@ -62,11 +59,11 @@ function getPosition(position) {
     let apiKey = "175ad63a7fc75a67f734a3105255cb29";
     let locationApiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
     axios.get(locationApiUrl).then(displayTemperature);
-}
+};
 
 function getCurrentPosition() {
 navigator.geolocation.getCurrentPosition(getPosition);
-}
+};
 
 let currentPositionButton = document.querySelector("#location-button");
 currentPositionButton.addEventListener("click", getCurrentPosition);
@@ -74,14 +71,11 @@ currentPositionButton.addEventListener("click", getCurrentPosition);
 
 function city(city) {
 let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-console.log(apiUrl);
 axios.get(apiUrl).then(displayTemperature);
-}
+};
 
 
 function displayTemperature(response) {
-console.log(response);
-
 let cityElement = document.querySelector("#city");
 let descriptionElement = document.querySelector(".description");
 let humidityElement = document.querySelector(".humidity-percent");
@@ -99,34 +93,15 @@ mainIconElement.setAttribute("src", `http://openweathermap.org/img/wn/${response
 getForecast(response.data.coord)
 };
 
-
-function showFahrenheit(event) {
-    event.preventDefault();
-let fahrenheit = Math.round(celsiusTemp*1.8+32);
-temperatureElement.innerHTML = `${fahrenheit}°F`;
-}
-
-function showCelsius(event) {
-    event.preventDefault();
-    temperatureElement.innerHTML = `${celsiusTemp}°C`;
-}
-
 let celsiusTemp = null;
 
 function handleSubmit(event) {
   event.preventDefault();
   let cityInputElement = document.querySelector("#search-input");
   city(cityInputElement.value);
-}
+};
 
-city("edinburgh");
+city("Švėkšna");
 
 let searchCity = document.querySelector("form");
 searchCity.addEventListener("submit", handleSubmit);
-
-
-let fahrenheitOption = document.querySelector(".fahrenheit-option");
-fahrenheitOption.addEventListener("click", showFahrenheit)
-
-let celsiusOption = document.querySelector(".celsius-option");
-celsiusOption.addEventListener("click", showCelsius);
