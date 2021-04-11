@@ -1,3 +1,7 @@
+let temperatureElement = document.querySelector("#degrees");
+let celsiusTemp = null; 
+let apiKey = "175ad63a7fc75a67f734a3105255cb29";
+
 function formatDate(timestamp) {
 let now = new Date(timestamp);
 let weekDay = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -15,11 +19,9 @@ if (minutes < 10) {
 return `${hours}:${minutes}, ${day} ${(now.getDate())} ${month}`;
 };
 
-
 function getForecast(coordinates) {
         let forecastApiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
         axios.get(forecastApiUrl).then(displayForecast);
-
 };
 
 function formatForecastDay(timestamp) {
@@ -36,8 +38,7 @@ function displayForecast(response) {
     let forecastHTML = `<div class="row">`;
     forecast.forEach(function(forecastDay) {
     forecastHTML =  forecastHTML + 
-    `
-                <div class="col-2" id="forecast">
+    `<div class="col-2" id="forecast">
                     <div id="forecast-day">
                         ${formatForecastDay(forecastDay.dt)}
                     </div>
@@ -54,10 +55,6 @@ function displayForecast(response) {
         forecastElement.innerHTML = forecastHTML;
 };
 
-
-let temperatureElement = document.querySelector("#degrees"); 
-let apiKey = "175ad63a7fc75a67f734a3105255cb29";
-
 function getPosition(position) {
     let lat = position.coords.latitude;
     let lon = position.coords.longitude;
@@ -69,10 +66,6 @@ function getPosition(position) {
 function getCurrentPosition() {
 navigator.geolocation.getCurrentPosition(getPosition);
 };
-
-let currentPositionButton = document.querySelector("#location-button");
-currentPositionButton.addEventListener("click", getCurrentPosition);
-
 
 function city(city) {
 let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
@@ -99,7 +92,6 @@ dateElement.innerHTML = formatDate(response.data.dt * 1000);
 getForecast(response.data.coord);
 };
 
-let celsiusTemp = null;
 
 function handleSubmit(event) {
   event.preventDefault();
@@ -107,7 +99,10 @@ function handleSubmit(event) {
   city(cityInputElement.value);
 };
 
-city("Švėkšna");
+let currentPositionButton = document.querySelector("#location-button");
+currentPositionButton.addEventListener("click", getCurrentPosition);
 
 let searchCity = document.querySelector("form");
 searchCity.addEventListener("submit", handleSubmit);
+
+city("Švėkšna");
