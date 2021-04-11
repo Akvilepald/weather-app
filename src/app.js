@@ -9,7 +9,20 @@ console.log(fullDate);
 let dateElement = document.querySelector(".today-date");
 dateElement.innerHTML = `${fullDate}`;
 
-function displayForecast() {
+function getForecast(coordinates) {
+    console.log(coordinates)
+        let forecastApiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+    console.log(forecastApiUrl);
+        axios.get(forecastApiUrl).then(displayForecast);
+
+}
+
+function displayForecast(response) {
+console.log(response);
+}
+
+function displayForecast(response) {
+    console.log(response.data.daily)
     let forecastElement = document.querySelector("#forecast");
     let forecastHTML = `<div class="row">`;
     let days = ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
@@ -33,7 +46,7 @@ function displayForecast() {
         forecastElement.innerHTML = forecastHTML;
 };
 
-let city = document.querySelector("input");
+
 let temperatureElement = document.querySelector("#degrees"); 
 let apiKey = "175ad63a7fc75a67f734a3105255cb29";
 
@@ -53,9 +66,8 @@ let currentPositionButton = document.querySelector("#location-button");
 currentPositionButton.addEventListener("click", getCurrentPosition);
 
 
-function getCity(event) {
-event.preventDefault();
-let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&appid=${apiKey}&units=metric`;
+function city(city) {
+let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 console.log(apiUrl);
 axios.get(apiUrl).then(displayTemperature);
 }
@@ -77,7 +89,9 @@ descriptionElement.innerHTML = response.data.weather[0].description;
 humidityElement.innerHTML = `${response.data.main.humidity}%`;
 windElement.innerHTML = `${response.data.wind.speed} m/s`;
 mainIconElement.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
-}
+
+getForecast(response.data.coord)
+};
 
 
 function showFahrenheit(event) {
@@ -91,13 +105,18 @@ function showCelsius(event) {
     temperatureElement.innerHTML = `${celsiusTemp}°C`;
 }
 
-displayForecast();
 let celsiusTemp = null;
 
+function handleSubmit(event) {
+  event.preventDefault();
+  let cityInputElement = document.querySelector("#search-input");
+  city(cityInputElement.value);
+}
 
+city("edinburgh");
 
 let searchCity = document.querySelector("form");
-searchCity.addEventListener("submit", getCity);
+searchCity.addEventListener("submit", handleSubmit);
 
 
 let fahrenheitOption = document.querySelector(".fahrenheit-option");
