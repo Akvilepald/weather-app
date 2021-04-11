@@ -87,11 +87,14 @@ body {
   font-weight: 700;
 }
 
-#day {
-  display: inline-block;
-  padding: 10px;
-  margin: 0 auto;
+#forecast {
   text-align: center;
+  margin-top: 20px;
+  font-size: 15px;
+}
+
+.forecast-min {
+  opacity: 0.5;
 }
 
 .today-date {
