@@ -1,13 +1,20 @@
-
-let now = new Date();
+function formatDate(timestamp) {
+let now = new Date(timestamp);
 let weekDay = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 let day = weekDay[now.getDay()];
 let monthName = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 let month = monthName[now.getMonth()];
-let fullDate = `${(now.getHours())}:${(now.getMinutes())}, ${day} ${(now.getDate())} ${month}`;
-console.log(fullDate);
-let dateElement = document.querySelector(".today-date");
-dateElement.innerHTML = `${fullDate}`;
+let hours = now.getHours();
+if (hours < 10) {
+    hours = `0${hours}`
+};
+let minutes = now.getMinutes();
+if (minutes < 10) {
+    minutes = `0${minutes}`
+};
+return `${hours}:${minutes}, ${day} ${(now.getDate())} ${month}`;
+};
+
 
 function getForecast(coordinates) {
         let forecastApiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
@@ -20,12 +27,10 @@ function formatForecastDay(timestamp) {
     let day = date.getDay();
     let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     return days[day];
-
 };
 
 function displayForecast(response) {
     let forecast = response.data.daily;
-    console.log(response.data.daily);
     forecast.length = 6;
     let forecastElement = document.querySelector("#forecast");
     let forecastHTML = `<div class="row">`;
@@ -80,7 +85,8 @@ let cityElement = document.querySelector("#city");
 let descriptionElement = document.querySelector(".description");
 let humidityElement = document.querySelector(".humidity-percent");
 let windElement = document.querySelector(".wind-speed");
-let mainIconElement = document.querySelector("#icon")
+let mainIconElement = document.querySelector("#icon");
+let dateElement = document.querySelector(".today-date");
 
 celsiusTemp = Math.round(response.data.main.temp);
 temperatureElement.innerHTML = `${Math.round(response.data.main.temp)}°C`;
@@ -89,8 +95,8 @@ descriptionElement.innerHTML = response.data.weather[0].description;
 humidityElement.innerHTML = `${response.data.main.humidity}%`;
 windElement.innerHTML = `${response.data.wind.speed} m/s`;
 mainIconElement.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
-
-getForecast(response.data.coord)
+dateElement.innerHTML = formatDate(response.data.dt * 1000);
+getForecast(response.data.coord);
 };
 
 let celsiusTemp = null;
